@@ -7,13 +7,14 @@
 
 #include<iostream>
 #include<cstdlib>
-#include "Llist.h"
+#include "llist.h"
 using namespace std;
 
 int GetElem_L(LinkList L, int i, ElemType &e)
 {
     LinkList p = L->next;
-    for(int k = 1; p && k < i; k++)
+    int k = 1;
+    for(; p && k < i; k++)
         p = p->next;
     if(!p || k > i)return 0;
     e = p->data;
@@ -55,7 +56,7 @@ int ListDelete_L(LinkList &L, int i, ElemType &e)
 
 void CreateList_L(LinkList &L, int n)
 {
-    L = (LinkList)malloc(sizeof(Lnode));
+    L = (LinkList)malloc(sizeof(LNode));
     L->next = NULL;
     LinkList p;
     for(int i = 0;i < n;i++)
@@ -63,7 +64,7 @@ void CreateList_L(LinkList &L, int n)
         p = (LinkList)malloc(sizeof(LNode));
         cin>>p->data;
         p->next = L->next;
-        L-next = p;
+        L->next = p;
     }
 }
 
