@@ -60,7 +60,7 @@ void visit(ElemType e)
     cout<<e<<" ";
 }
 
-int StackTraverse(SqStack S, visit)
+int StackTraverse(SqStack S,void (*visit)(ElemType e))
 {
     if(S.base == S.top)return 0;
     ElemType e;
