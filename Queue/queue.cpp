@@ -6,6 +6,7 @@
  ************************************************************************/
 
 #include<iostream>
+#include<cstdlib>
 #include "queue.h"
 using namespace std;
 
@@ -30,8 +31,8 @@ int ClearQueue(LinkQueue &Q)
 {
     Q.rear = Q.front;
     QueuePtr p, q;
-    p = Q->next;
-    Q->next = NULL;
+    p = Q.front->next;
+    Q.front->next = NULL;
     while(p) {
         q = p->next;
         free(p);
@@ -42,14 +43,14 @@ int ClearQueue(LinkQueue &Q)
 
 int QueueEmpty(LinkQueue Q)
 {
-    return (Q->front == Q->rear);
+    return (Q.front == Q.rear);
 }
 
 int QueueLength(LinkQueue Q)
 {
     QueuePtr p;
     int cnt = 0;
-    p = Q->next;
+    p = Q.front->next;
     while(p)
     {
         cnt++;
