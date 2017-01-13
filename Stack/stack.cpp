@@ -69,6 +69,7 @@ int StackTraverse(SqStack S,void (*visit)(ElemType e))
         Pop(S,e);
         visit(e);
     }
+    cout<<endl;
     return 1;
 }
 
