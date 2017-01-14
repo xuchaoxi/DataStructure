@@ -11,6 +11,8 @@
 
 #include<iostream>
 
+#define MAXQSIZE 100
+
 typedef int QElemType;
 
 typedef struct QNode {
@@ -22,6 +24,12 @@ typedef struct {
     QueuePtr front;
     QueuePtr rear;
 }LinkQueue;
+
+typedef struct {
+    QElemType *base;
+    int front;
+    int rear;
+}SqQueue;
 
 int InitQueue(LinkQueue &Q);
 
@@ -43,5 +51,11 @@ void visit(QElemType e);
 
 int QueueTraverse(LinkQueue Q, void (*visit)(QElemType e));
 
+int InitQueue_Sq(SqQueue &Q);
 
+int QueueLength_Sq(SqQueue Q);
+
+int EnQueue_Sq(SqQueue &Q, QElemType e);
+
+int DeQueue_Sq(SqQueue &Q, QElemType &e);
 
