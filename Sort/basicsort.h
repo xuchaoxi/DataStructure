@@ -276,3 +276,221 @@ void ShellSort(T data[], int size, Func f)
         }
     }
 }
+
+
+/*
+ * function : quick_sort
+ */
+template <typename T>
+void quick_sort(T data[], int first, int last)
+{
+    int lower = first+1;
+    int upper = last;
+    int t = rand() % (last-first) + first;  // !
+    std::swap(data[first], data[t]);
+    T& bound = data[first];
+    while(lower <= upper)
+    {
+        while(data[lower] < bound)
+        {
+            ++lower;
+        }
+        while(bound < data[upper])
+        {
+            --upper;
+        }
+        if(lower < upper)
+        {
+            std::swap(data[lower], data[upper]);
+            ++lower;
+            --upper;
+        }
+        else      // ? 
+            ++lower;
+    }
+    std::swap(data[upper], data[first]); 
+    if(first < upper-1)
+    {
+        quick_sort(data, first, upper-1);
+    }
+    if(upper+1 < last)
+    {
+        quick_sort(data, upper, last);
+    }
+}
+/*
+ * function : QuickSort
+ * time & mem : O(nlogn)[worst:O(n^2)], O(logn)
+ * param : data[], size
+ * con : data != NULL size > 0
+ * con2 data (<=)
+ * usage:
+ * #include<algorithm>
+ * #include<cstdlib>
+ * #include<ctime>
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * QuickSort(arr, 10);
+ */
+template <typename T>
+void QuickSort(T data[], int size)
+{
+    int i, max;
+    if(size < 2)
+        return;
+    for(i = 1, max = 0;i < size;++i)
+    {
+        if(data[max] < data[i])
+            max = i;
+    }
+    std:swap(data[size-1], data[max]);
+    srand(time(0));
+    quick_sort(data, 0, size-2);
+}
+
+
+/*
+ * function : quick_sort
+ */
+template <typename T, typename Func>
+void quick_sort(T data[], int first, int last, Func& f)
+{
+    int lower = first+1;
+    int upper = last;
+    int t = rand() % (last-first) + first;  // !
+    std::swap(data[first], data[t]);
+    T& bound = data[first];
+    while(lower <= upper)
+    {
+        while(f(data[lower], bound))
+        {
+            ++lower;
+        }
+        while(f(bound, data[upper]))
+        {
+            --upper;
+        }
+        if(lower < upper)
+        {
+            std::swap(data[lower], data[upper]);
+            ++lower;
+            --upper;
+        }
+        else      // ? 
+            ++lower;
+    }
+    std::swap(data[upper], data[first]); 
+    if(first < upper-1)
+    {
+        quick_sort(data, first, upper-1);
+    }
+    if(upper+1 < last)
+    {
+        quick_sort(data, upper, last);
+    }
+}
+/*
+ * function : QuickSort
+ * time & mem : O(nlogn)[worst:O(n^2)], O(logn)
+ * param : data[], size,cmp
+ * con : data != NULL size > 0
+ * con2 data (f)
+ * usage:
+ * #include<algorithm>
+ * #include<cstdlib>
+ * #include<ctime>
+ * bool cmp(int a, int b) { return a < b; }
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * QuickSort(arr, 10, cmp);
+ */
+template <typename T, typename Func>
+void QuickSort(T data[], int size, Func f)
+{
+    int i, max;
+    if(size < 2)
+        return;
+    for(i = 1, max = 0;i < size;++i)
+    {
+        if(data[max] < data[i])
+            max = i;
+    }
+    std:swap(data[size-1], data[max]);
+    srand(time(0));
+    quick_sort(data, 0, size-2, f);
+}
+
+
+/*
+ * function : partition
+ */
+template <typename T>
+int Partition(T data[], int low, int high)
+{
+    T pivot = data[low];
+    while(low < high)
+    {
+        while(low < high && data[high] > pivot)
+        {
+            --high;
+        }
+        data[low] = data[high];
+        while(low < high && data[low] < pivot)
+        {
+            ++low;
+        }
+        data[high] = data[low];
+    }
+    data[low] = pivot;
+    return low;
+}
+/*
+ * function : QSort
+ * time & mem : O(nlogn)[worst O(n^2)] O(logn)
+ * param : data size
+ * con : data != NULL,size > 0
+ * con2 : data (<=)
+ * usage:
+ * QSort(data, 0, size-1);
+ */
+template <typename T>
+void QSort(T data[], int low, int high)
+{
+    int mid;
+    if(low < high)
+    {
+        mid = Partition(data, low, high);
+        QSort(data, 0, mid-1);
+        QSort(data, mid+1, high);
+    }
+}
+
+
+/*
+ * function : MergeSort
+ * time & mem : O(nlogn) O(n)
+ * usage :
+ * #include<algorithm>
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * MergeSort(arr, 10);
+ */
+template <typename T>
+void MergeSort(T data[], int size)
+{
+    if(size > 1)
+    {
+        int mid = size/2;
+        int numOfleft = mid;
+        int numOfright = size - mid;
+        T* left = new T[numOfleft];
+        T* right = new T[numOfright];
+        //divide 
+        std::copy(data, data+numOfleft, left);
+        std::copy(data+numOfleft, data+size, right);
+        MergeSort(left, numOfleft);
+        MergeSort(right, numOfright);
+        // merge
+        std::merge(left, left+numOfleft, right, right+numOfright, data);
+        delete[] left;
+        delete[] right;
+    }
+}
+
