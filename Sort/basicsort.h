@@ -494,3 +494,136 @@ void MergeSort(T data[], int size)
     }
 }
 
+
+/*
+ * function : MergeSort
+ * time & mem : O(nlogn) O(n)
+ * usage :
+ * #include<algorithm>
+ * bool cmp(int a, int b) { return a < b; }
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * MergeSort(arr, 10);
+ */
+template <typename T, typename Func>
+void MergeSort(T data[], int size, Func f)
+{
+    if(size > 1)
+    {
+        int mid = size/2;
+        int numOfleft = mid;
+        int numOfright = size - mid;
+        T* left = new T[numOfleft];
+        T* right = new T[numOfright];
+        MergeSort(left, numOfleft, f);
+        MergeSort(right, numOfright, f);
+        // divide
+        std::copy(data, data+numOfleft, left);
+        std::copy(data+numOfleft, data+size, right);
+        //merge
+        std::merge(left, numOfleft, right, numOfright, data, f);
+        delete[] left;
+        delete[] right;
+    }
+}
+
+
+/*
+ * function : head_down
+ */
+template <typename T>
+void head_down(T data[], int i, const int &size)
+{
+    int p = i*2+1;
+    while(p < size)
+    {
+        if(p+1 < size)
+        {
+            if(data[p] < data[p+1])
+            {
+                ++p;
+            }
+        }
+        if(data[i] < data[p])
+        {
+            std::swap(data[p], data[i]);
+            i = p;
+            p = i*2+1;
+        }
+        else
+            break;
+    }
+}
+/*
+ * function : HeapSort
+ * param : data size
+ * con : data <=
+ * usage :
+ * #include<algorithm>
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * HeapSort(arr, 10);
+ */
+template <typename T>
+void HeapSort(T data[], int size)
+{
+    int i;
+    for(i = (size-1)/2;i >= 0;--i)
+    {
+        head_down(data, i, size);
+    }
+    for(i = size-1;i > 0;--i)
+    {
+        std:swap(data[0], data[i]);
+        head_down(data, 0, i);
+    }
+}
+
+/*
+ * function : head_down
+ */
+template <typename T, typename Func>
+void head_down(T data[], int i, const int &size, Func& f)
+{
+    int p = i*2+1;
+    while(p < size)
+    {
+        if(p+1 < size)
+        {
+            if(f(data[p], data[p+1]))
+            {
+                ++p;
+            }
+        }
+        if(f(data[i], data[p]))
+        {
+            std::swap(data[p], data[i]);
+            i = p;
+            p = i*2+1;
+        }
+        else
+            break;
+    }
+}
+/*
+ * function : HeapSort
+ * param : data size
+ * con : data <=
+ * usage :
+ * #include<algorithm>
+ * bool cmp(int a, int b) { return a < b; }
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * HeapSort(arr, 10);
+ */
+template <typename T, typename Func>
+void HeapSort(T data[], int size, Func& f)
+{
+    int i;
+    for(i = (size-1)/2;i >= 0;--i)
+    {
+        head_down(data, i, size, f);
+    }
+    for(i = size-1;i > 0;--i)
+    {
+        std:swap(data[0], data[i]);
+        head_down(data, 0, i, f);
+    }
+}
