@@ -1,12 +1,13 @@
 /*************************************************************************
-	> File Name: insertSort.cpp
+	> File Name: basicSort.h
 	> Author: Chaoxi Xu
 	> Mail: xuchaoxikb@gmail.com 
 	> Created Time: Sun 26 Mar 2017 10:53:58 AM CST
  ************************************************************************/
 
-#include<iostream>
-using namespace std;
+#ifndef _BASICSORT_H
+#define _BASICSORT_H
+#endif
 
 /*
  * function : InsertSort
