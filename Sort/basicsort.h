@@ -109,7 +109,7 @@ void SelectSort(T data[], int size)
  * bool cmp(int a, int b) { return a < b; }
  * SelectSort(arr, 10);
  */
-template <template T, template Func>
+template <typename T, typename Func>
 void SelectSort(T data[], int size, Func f)
 {
     int i, j, k;
@@ -140,4 +140,46 @@ void SelectSort(T data[], int size, Func f)
  * int arr[] = {10,9,8,4,5,7,6,3,1,4};
  * BubbleSort(arr, 10);
  */
+template <typename T>
+void BubbleSort(T data[], int size)
+{
+    int i, j;
+    for(i = 0;i < size-1;++i)
+    {
+        for(j = size-1;j > i;--j)
+        {
+            if(data[j] < data[j-1])
+            {
+                std::swap(data[j], data[j-1]);
+            }
+        }
+    }
+}
 
+
+/*
+ * function : BubbleSort
+ * param : data[], size cmp
+ * con : data!=NULL size > 0
+ * con2 : data (cmp)
+ * usage:
+ * #include<algorithm>
+ * bool cmp(int a, int b) { return a < b; }
+ * int arr[] = {10,9,8,4,5,7,6,3,1,4};
+ * BubbleSort(arr, 10);
+ */
+template <typename T, typename Func>
+void BubbleSort(T data[], int size, Func f)
+{
+    int i, j;
+    for(i = 0;i < size-1;++i)
+    {
+        for(j = size-1;j > i;--j)
+        {
+            if(f(data[j], data[j-1]))
+            {
+                std::swap(data[j], data[j-1]);
+            }
+        }
+    }
+}
