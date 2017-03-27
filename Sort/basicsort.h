@@ -315,7 +315,7 @@ void quick_sort(T data[], int first, int last)
     }
     if(upper+1 < last)
     {
-        quick_sort(data, upper, last);
+        quick_sort(data, upper+1, last);
     }
 }
 /*
@@ -385,7 +385,7 @@ void quick_sort(T data[], int first, int last, Func& f)
     }
     if(upper+1 < last)
     {
-        quick_sort(data, upper, last);
+        quick_sort(data, upper+1, last);
     }
 }
 /*
