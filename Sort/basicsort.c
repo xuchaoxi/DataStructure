@@ -5,9 +5,6 @@
 	> Created Time: Sun 26 Mar 2017 10:53:58 AM CST
  ************************************************************************/
 
-#ifndef _BASICSORT_H
-#define _BASICSORT_H
-#endif
 
 /*
  * function : InsertSort
